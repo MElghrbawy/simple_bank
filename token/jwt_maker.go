@@ -26,25 +26,25 @@ func NewJWTMaker(secretKey string) (Maker, error) {
 }
 
 // CreateToken creates a new  token for a specific username and duration
-func (maker *JWTMaker) CreateToken(username string, duration time.Duration) (string, error) {
+func (maker *JWTMaker) CreateToken(username string, duration time.Duration) (string, *Payload, error) {
 	payload, err := NewPayload(username, duration)
 	if err != nil {
-		return "", err
+		return "", nil, err
 	}
 
 	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"id":        payload.ID,
 		"username":  payload.Username,
 		"issuedAt":  payload.IssuedAt.Unix(),
-		"expiredAt": payload.ExpiredAt.Unix(),
+		"ExpiresAt": payload.ExpiresAt.Unix(),
 	})
 
 	tokenString, err := jwtToken.SignedString([]byte(maker.secretKey))
 	if err != nil {
-		return "", err
+		return "", nil, err
 	}
 
-	return tokenString, nil
+	return tokenString, payload, nil
 }
 
 // VerifyToken checks if the token is valid or not
@@ -82,7 +82,7 @@ func (maker *JWTMaker) VerifyToken(tokenString string) (*Payload, error) {
 		ID:        id,
 		Username:  claims["username"].(string),
 		IssuedAt:  time.Unix(int64(claims["issuedAt"].(float64)), 0),
-		ExpiredAt: time.Unix(int64(claims["expiredAt"].(float64)), 0),
+		ExpiresAt: time.Unix(int64(claims["ExpiresAt"].(float64)), 0),
 	}, nil
 
 }

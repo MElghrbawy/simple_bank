@@ -16,9 +16,9 @@ func TestJWTMaker(t *testing.T) {
 	duration := time.Minute
 
 	issuedAt := time.Now()
-	expiredAt := issuedAt.Add(duration)
+	ExpiresAt := issuedAt.Add(duration)
 
-	token, err := maker.CreateToken(username, duration)
+	token, _, err := maker.CreateToken(username, duration)
 	require.NoError(t, err)
 	require.NotEmpty(t, token)
 
@@ -29,7 +29,7 @@ func TestJWTMaker(t *testing.T) {
 	require.NotZero(t, payload.ID)
 	require.Equal(t, username, payload.Username)
 	require.WithinDuration(t, issuedAt, payload.IssuedAt, time.Second)
-	require.WithinDuration(t, expiredAt, payload.ExpiredAt, time.Second)
+	require.WithinDuration(t, ExpiresAt, payload.ExpiresAt, time.Second)
 
 }
 
@@ -55,7 +55,7 @@ func TestJWTMaker(t *testing.T) {
 // 		"id":        payload.ID,
 // 		"username":  payload.Username,
 // 		"issuedAt":  payload.IssuedAt.Unix(),
-// 		"expiredAt": payload.ExpiredAt.Unix(),
+// 		"ExpiresAt": payload.ExpiresAt.Unix(),
 // 	})
 
 // 	tokenString, err := jwtToken.SignedString(jwt.UnsafeAllowNoneSignatureType)
