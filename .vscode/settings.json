@@ -9,6 +9,7 @@
     "Paseto",
     "pgtype",
     "protobuf",
+    "protojson",
     "sqlc",
     "sslmode",
     "stretchr",
