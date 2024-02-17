@@ -2,14 +2,17 @@
   "cSpell.words": [
     "aidanwoods",
     "DBTX",
+    "gapi",
     "gomock",
     "gonic",
     "mockdb",
     "Paseto",
     "pgtype",
+    "protobuf",
     "sqlc",
     "sslmode",
     "stretchr",
+    "timestamppb",
     "Timestamptz"
   ]
 }
