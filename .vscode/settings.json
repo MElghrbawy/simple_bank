@@ -12,6 +12,7 @@
     "protojson",
     "sqlc",
     "sslmode",
+    "statik",
     "stretchr",
     "timestamppb",
     "Timestamptz"
