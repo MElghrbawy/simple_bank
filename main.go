@@ -12,6 +12,9 @@ import (
 	"github.com/MElghrbawy/simple_bank/gapi"
 	"github.com/MElghrbawy/simple_bank/pb"
 	"github.com/MElghrbawy/simple_bank/util"
+	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	_ "github.com/lib/pq"
 	"github.com/rakyll/statik/fs"
@@ -32,9 +35,25 @@ func main() {
 	}
 	store := db.NewStore(conn)
 
+	runDBMigrations(config.MIGRATION_URL, config.DBSource)
+
 	go runGatewayServer(config, store)
 	runGrpcServer(config, store)
 
+}
+
+func runDBMigrations(migrationURL string, dbSource string) {
+	migration, err := migrate.New(migrationURL, dbSource)
+	if err != nil {
+		log.Fatal("cannot create migration:", err)
+	}
+
+	if err = migration.Up(); err != nil && err != migrate.ErrNoChange {
+
+		log.Fatal("cannot migrate db:", err)
+	}
+
+	log.Println("migration completed")
 }
 
 func runGrpcServer(config util.Config, store db.Store) {
