@@ -8,7 +8,6 @@ require (
 	github.com/go-playground/validator/v10 v10.17.0
 	github.com/golang-jwt/jwt/v5 v5.2.0
 	github.com/golang/mock v1.6.0
-	github.com/golang/protobuf v1.5.3
 	github.com/google/uuid v1.6.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.1
 	github.com/lib/pq v1.10.9
@@ -23,12 +22,9 @@ require (
 )
 
 require (
-	github.com/google/go-github/v39 v39.2.0 // indirect
-	github.com/google/go-querystring v1.1.0 // indirect
+	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
-	golang.org/x/oauth2 v0.16.0 // indirect
-	google.golang.org/appengine v1.6.8 // indirect
 )
 
 require (
