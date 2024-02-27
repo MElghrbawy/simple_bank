@@ -1,6 +1,7 @@
 {
   "cSpell.words": [
     "aidanwoods",
+    "asynq",
     "DBTX",
     "errdetails",
     "gapi",
@@ -8,6 +9,7 @@
     "gomock",
     "gonic",
     "googleapis",
+    "hibiken",
     "mockdb",
     "Msgf",
     "narg",
